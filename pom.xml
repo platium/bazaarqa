@@ -22,7 +22,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <includes>
-            <include>**/*FT.java</include>
+            <include>*.java</include>
           </includes>
           <excludes>
             <exclude>**/Tests*.java</exclude>
