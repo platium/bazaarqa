@@ -8,6 +8,49 @@
   <artifactId>bazaar-qa</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+  <properties>
+    <build.profile.id>staging</build.profile.id>
+    <skip.integration.tests>true</skip.integration.tests>
+    <skip.unit.tests>false</skip.unit.tests>
+    <jacoco.skip>false</jacoco.skip>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <includes>
+            <include>**/*FT.java</include>
+          </includes>
+          <excludes>
+            <exclude>**/Tests*.java</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.7.8</version>
+        <configuration>
+          <address>192.168.88.232</address>
+          <destFile>${project.build.directory}/jacoco.exec</destFile>
+          <port>10001</port>
+          <reset>true</reset>
+          <append>true</append>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>dump</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
   <dependencies>
 
@@ -18,7 +61,6 @@
       <version>4.4</version>
       <scope>test</scope>
     </dependency>
-
 
     <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
     <dependency>
@@ -34,8 +76,6 @@
       <version>3.14.0</version>
     </dependency>
 
-
-
     <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
@@ -50,15 +90,12 @@
       <version>2.0b1</version>
     </dependency>
 
-
     <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-remote-driver -->
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-remote-driver</artifactId>
       <version>3.14.0</version>
     </dependency>
-
-
 
   </dependencies>
 
